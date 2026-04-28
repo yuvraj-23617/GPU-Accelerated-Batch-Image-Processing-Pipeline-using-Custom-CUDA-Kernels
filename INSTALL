@@ -1,0 +1,56 @@
+================================================================================
+  CUDA Image Processing Pipeline — Installation Guide
+================================================================================
+
+PREREQUISITES
+-------------
+  1. NVIDIA GPU with Compute Capability >= 3.5
+  2. CUDA Toolkit >= 11.0 (includes nvcc compiler)
+  3. GNU Make (Linux/macOS) or MSYS2/WSL (Windows)
+  4. GCC >= 7.0 or compatible C++ compiler
+
+LINUX / WSL
+-----------
+  # Install CUDA Toolkit (Ubuntu/Debian)
+  sudo apt update
+  sudo apt install -y nvidia-cuda-toolkit
+
+  # Verify installation
+  nvcc --version
+  nvidia-smi
+
+  # Build
+  make clean && make
+
+  # Run
+  ./run.sh
+  # or: make run
+
+GOOGLE COLAB (Recommended — no local GPU needed)
+-------------------------------------------------
+  1. Open a new Colab notebook at https://colab.research.google.com
+  2. Go to Runtime > Change runtime type > GPU (T4)
+  3. Upload src/gpu_image_processing.cu or paste it with %%writefile
+  4. Run:
+       !mkdir -p sample_output
+       !nvcc -O2 -o imgpipeline gpu_image_processing.cu
+       !./imgpipeline --num_images 200 --width 256 --height 256
+
+WINDOWS (Native)
+----------------
+  1. Install CUDA Toolkit from https://developer.nvidia.com/cuda-downloads
+  2. Open "x64 Native Tools Command Prompt" or Developer PowerShell
+  3. Run: nvcc -O2 -o imgpipeline.exe src\gpu_image_processing.cu
+  4. Run: imgpipeline.exe --num_images 200
+
+VERIFYING GPU ACCESS
+--------------------
+  nvidia-smi          # Should list your GPU
+  nvcc --version      # Should show CUDA compiler version
+
+TROUBLESHOOTING
+---------------
+  - "nvcc not found": Add CUDA bin directory to PATH
+    export PATH=/usr/local/cuda/bin:$PATH
+  - "no CUDA-capable device": Ensure NVIDIA drivers are installed
+  - Colab: Runtime > Change runtime type > select GPU

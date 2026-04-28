@@ -1,0 +1,15 @@
+# Build artifacts
+imgpipeline
+imgpipeline.exe
+*.o
+*.obj
+
+# Editor files
+*.swp
+*~
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
